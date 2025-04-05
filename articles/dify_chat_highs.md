@@ -1,10 +1,13 @@
 ---
-title: "高校生がDifyさわってみる"
+title: "高校生でもできる！Dify入門"
 emoji: "🤖"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [ dify, azure, 初心者 ]
 published: false
 ---
+:::message
+Azure のアカウントと Azure OpenAI が必要になります。
+:::
 
 # はじめに
 今度作ろうと思っているアプリのために Dify についてまとめようと思い、
