@@ -1,5 +1,5 @@
 ---
-title: "高校生でもできる！Dify入門"
+title: "高校生でもできる! Dify入門"
 emoji: "🤖"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [ dify, azure, 初心者 ]
@@ -22,7 +22,7 @@ Dify とは、LLMアプリケーションを簡単に作成・デプロイ・運
 
 - LLMベースのアプリケーションを、コーディング不要で作成可能
   - 例: ドラッグ&ドロップでチャットボットを作成できる
-- OpenAI、Azure OpenAI Service、Anthropic など、複数のLLMプロバイダーに対応　
+- OpenAI、Azure OpenAI Service、Anthropic など、複数のLLMプロバイダーに対応
   - 例: GPT-4 や Claude 2 などの最新モデルを利用可能
 - プロンプトエンジニアリング、RAG(Retrieval Augmented Generation) などの機能を搭載
   - 例: 独自のデータを学習させて回答の精度を向上
