@@ -144,10 +144,10 @@ npx create-next-app@latest dify_next_app
 ```
 
 :::message
-**開発サーバーの起動**
-以下のコマンドで開発サーバーを起動できます：
+**インストール**
+コピペができたらインストールするのを忘れないでください：
 ```bash
-npm run dev
+npm　install
 ```
 :::
 
