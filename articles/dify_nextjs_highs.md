@@ -1,51 +1,60 @@
 ---
 title: "高校生でもできる! DifyをNext.jsに実装"
-emoji: "💻"
+emoji: "🚀"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: [ dify, nextjs, 初心者 ]
+topics: [ dify, nextjs, 初心者, ai, チャットボット ]
 published: false
 ---
 
-# はじめに
-Dify を使用した web アプリを制作する過程で必要になったので記事に軽いハンズオンと一緒にまとめました。
-この記事で学べるのは、apiキーの取得する方法から実装までです。
+# 🎯 はじめに
+こんにちは！今回はDifyを使用したwebアプリの制作過程を、ハンズオン形式でご紹介します！
+この記事を読むことで、APIキーの取得から実装まで、一連の流れを理解することができます。
 
-## Dify初めての方へ
+![](/images/difynextjs/finalresult.png)
+
+**完成イメージはこんな感じ！** シンプルで使いやすいチャットボットが作れます✨
+
+## 📚 前提知識
 
 https://zenn.dev/bu_ri/articles/dify_chat_highs
 
-Difyのアカウント作成からのアカウント作成からチャットボット作成までの手順があります👆
+Difyのアカウント作成からチャットボット作成までの手順はこちらの記事で解説しています👆
+まずはこちらを参考に、Difyのアカウントを作成してください！
 
-# 製作開始！！
+# 🛠️ 製作開始！！
 
-まずは新しくAIを作っていきましょう。
+それでは、実際にAIを作っていきましょう！
 
-## AI作成
+## 🤖 AI作成かAPIキー取得まで
 
+### 1. プロジェクト作成
 ![](/images/difynextjs/newproject.png)
 
-そしたらAIの種類はチャットボットのままでアプリ名を決めたら作成
-
+### 2. AIタイプの選択
+チャットボットを選択し、アプリ名を決めましょう！
 ![](/images/difynextjs/selectaitype.png)
 
-そうしたらアプリに使うAIのモデルを選択し、元となるチャットボット
-
+### 3. AIモデルの設定
+使用するAIモデルを選択し、基本設定を完了させます
 ![](/images/difynextjs/completeAI.png)
 
-APIにアクセスをクリック
-
+### 4. API設定
+APIにアクセスをクリックして、次のステップへ進みましょう
 ![](/images/difynextjs/apipage.png)
 
-すると Dify の API について色々書かれたタブに行きます。
-そして右上にあるAPIキーをクリックして、新しいシークレットキーを取得 を
-クリックしてキーを取得
 
+### 5. APIキーの取得
+APIキーを取得するために、以下の手順で進めていきましょう。
 ![](/images/difynextjs/apikey.png)
 
-ここには API について一つ一つ書かれていますがどれを使えばいいのか
-こんがらがる(実際にこんがらがった💦)ので、簡単に今回使うものについてまとめます。
-下にスクロールしたらでてくるcurlコマンドだけです。
+:::message alert
+**重要！**
+取得したAPIキーは必ず安全に保管してください。他人と共有しないようにしましょう。
+:::
 
+### 6. APIの動作確認
+実際にAPIが動作するか確認してみましょう。
+以下のcurlコマンドを実行して、レスポンスを確認します。
 
 ```bash
 curl -X POST 'https://api.dify.ai/v1/chat-messages' \
@@ -67,23 +76,22 @@ curl -X POST 'https://api.dify.ai/v1/chat-messages' \
 }''
 ```
 
-これを実行するとこのようになります
-
+実行結果はこのようになります：
 ![](/images/difynextjs/curlresult.png)
 
-よく見たらanswerのところにレスポンスが帰ってきているのがわかります。
+`answer`の部分にレスポンスが返ってきているのが確認できますね！
 
-## next.jsで開発
+## 💻 Next.jsで開発
 
-### セットアップ
+### 1. セットアップ
+まずはNext.jsのプロジェクトを作成しましょう。
 
-まず、next.jsのセットアップをしましょう。
-アプリを作りたいディレクトリの中で以下のコマンドを実行します。
-
-```
+```bash
 npx create-next-app@latest dify_next_app
 ```
-今回、package.jsonはこのようになっています。
+
+### 2. 必要なパッケージの確認
+`package.json`の内容を確認しましょう。
 
 ```json:package.json
 {
@@ -114,15 +122,23 @@ npx create-next-app@latest dify_next_app
     "typescript": "^5"
   }
 }
-
 ```
 
-### apiを叩く
-ではapiを叩いていきましょう。
-apiというディレクトリを作成し、さらにその中にchatというディレクトリを作成。
-そして、route.tsファイルをその中に作成。
-出来たら以下のコードを入力
-Authorizationのなかにある`YOUR-SECRET-KEY`は取得したAPIキーを入れてください
+:::message
+**開発サーバーの起動**
+以下のコマンドで開発サーバーを起動できます：
+```bash
+npm run dev
+```
+:::
+
+### 3. APIの実装
+`api/chat/route.ts`を作成し、以下のコードを実装します。
+
+:::message alert
+**注意点**
+`YOUR-SECRET-KEY`の部分は、先ほど取得したAPIキーに置き換えてください！
+:::
 
 ```ts:chat/route.ts
 import { NextResponse } from 'next/server';
@@ -135,7 +151,6 @@ export async function POST(request: Request) {
       throw new Error('DIFY_API_KEY is not set in environment variables');
     }
 
-//ここがapiの主な部分です
     const response = await fetch('https://api.dify.ai/v1/chat-messages', {
       method: 'POST',
       headers: {
@@ -184,9 +199,9 @@ export async function POST(request: Request) {
 } 
 ```
 
-### フロント側の作成
-では、画面側を作っていきましょう
-構成としては、タイトル、入力フォーム、送信ボタン、その下にレスポンスが表示されるというシンプルなものにしました。
+### 4. フロントエンドの実装
+シンプルで使いやすいチャットインターフェースを作成します。
+
 ```tsx:page.tsx
 'use client';
 
@@ -226,53 +241,51 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen p-4 bg-gray-50">
+    <div>
+      <h1>Difyチャット</h1>
+      
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="メッセージを入力..."
+          disabled={isLoading}
+        />
+        <button
+          type="submit"
+          disabled={isLoading}
+        >
+          {isLoading ? '送信中...' : '送信'}
+        </button>
+      </form>
 
-        <h1>Difyチャット</h1>
-        
-        <form onSubmit={handleSubmit} className="mb-4">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="メッセージを入力..."
-            disabled={isLoading}
-          />
-          <button
-            type="submit"
-            disabled={isLoading}
-          >
-            {isLoading ? '送信中...' : '送信'}
-          </button>
-        </form>
-
-          <div >
-            <p >{answer}</p>
-          </div>
-
+      <div>
+        <p>{answer}</p>
+      </div>
     </div>
   );
 } 
 ```
-これで完了です！
-実際に動かしてみましょう
 
-# 動作確認
+# 🎉 動作確認
 
-実行して動作確認をしてみましょう
+開発サーバーを起動して、実際に動作確認をしてみましょう！
 
 ```bash
 npm run dev
 ```
-実行直後の画面はこのような感じになります。
 
+起動直後の画面：
 ![](/images/difynextjs/final.png)
 
-実際に質問してみたらちゃんと返ってきました😊
-
+実際に質問してみると...
 ![](/images/difynextjs/finalresult.png)
 
-# 最後に
-このようにすることにより、Difyで作ったAIをnext.jsに落とし込むことができます。
-みなさんの今後webアプリ制作に参考になったのなら幸いです。
-これからもアプリ制作頑張っていきます！
+ちゃんとAIが応答してくれました！😊
+
+# 🌟 最後に
+これで、Difyで作成したAIをNext.jsアプリケーションに組み込むことができました！
+この記事が、みなさんのWebアプリ制作の参考になれば幸いです。
+
+これからも、より良いアプリ制作を目指して頑張っていきましょう！✨
