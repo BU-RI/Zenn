@@ -6,6 +6,14 @@ topics: [ dify, nextjs, 初心者, ai, チャットボット ]
 published: false
 ---
 
+‎
+‎
+
+![](/images/difynextjs/samune.drawio.png)
+
+‎
+‎
+
 # 🎯 はじめに
 こんにちは！今回はDifyを使用したwebアプリの制作過程を、ハンズオン形式でご紹介します！
 この記事を読むことで、APIキーの取得から実装まで、一連の流れを理解することができます。
@@ -13,6 +21,17 @@ published: false
 ![](/images/difynextjs/finalresult.png)
 
 **完成イメージはこんな感じ！** シンプルで使いやすいチャットボットが作れます✨
+
+## 📊 アプリケーションの流れ
+
+![](/images/difynextjs/finaldifynext.drawio.png)
+
+このアプリはこのような流れで動作します。
+1. ユーザーがメッセージを入力
+2. フロントエンドからNext.jsのAPI Routeにリクエストを送信
+3. API RouteがDify APIを呼び出し
+4. Difyからのレスポンスをフロントエンドに返す
+5. ユーザーにレスポンスを表示
 
 ## 📚 前提知識
 
