@@ -3,7 +3,7 @@ title: "高校生でもできる! DifyをNext.jsに実装"
 emoji: "🚀"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [ dify, nextjs, 初心者, ai, チャットボット ]
-published: false
+published: true
 ---
 
 ‎
